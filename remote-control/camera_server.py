@@ -24,6 +24,7 @@ camera_object = cv2.VideoCapture(0)
 app = flask.Flask("Remote control")
 
 
+
 # Define the control as a function of the URL
 @app.route('/')
 def index():
