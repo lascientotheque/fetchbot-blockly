@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>CamJamBot contol</title>
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> </script>
+        <script type=text/javascript> 
+            $(function() { $("#forward").click(function (event) { $.getJSON('/forward', { },
+                            function(data) { }); return false; }); }); 
+            $(function() { $("#backward").click(function (event) { $.getJSON('/backward', { },
+                            function(data) { }); return false; }); });
+            $(function() { $("#left").click(function (event) { $.getJSON('/left', { },
+                            function(data) { }); return false; }); });
+            $(function() { $("#right").click(function (event) { $.getJSON('/right', { },
+                            function(data) { }); return false; }); });
+        </script> 
+    </head>
+
+    <body>
+
+        <div align='center'>
+
+            <h2>MarsCamBot remote control</h2>
+    
+            <hr>
+
+            <input type = "button" id = "forward" value = "Forward" />
+            <input type = "button" id = "backward" value = "Backward" />
+            <input type = "button" id = "left" value = "Left" />
+            <input type = "button" id = "right" value = "Right" />
+        
+            <hr>
+
+            <img src="{{ url_for('video_feed') }}" width='65%'>
+    
+        </div>
+
+    </body>
+</html>
+
