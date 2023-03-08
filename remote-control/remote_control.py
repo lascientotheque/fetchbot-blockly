@@ -18,16 +18,15 @@ motor_speed=0.25
 # Set duration
 duration=0.5
 
+camera_object = cv2.VideoCapture(0)
 
 # Display the video
 def display_video():
     
-    camera_object = cv2.VideoCapture(0)
-    
     while True:
     
         ret, picture = camera_object.read()
-        picture_rgb = cv2.cvtColor(picture, cv2.COLOR_BGR2RGB)
+        picture_rgb = picture #cv2.cvtColor(picture, cv2.COLOR_BGR2RGB)
     
         ret, jpeg = cv2.imencode('.jpg', picture_rgb)
         pic = jpeg.tobytes()
@@ -50,6 +49,18 @@ def index():
 def video_feed():
     return flask.Response(display_video(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/get_video_frame')
+def get_video_frame():
+
+    ret, picture = camera_object.read()
+    #picture_rgb = cv2.cvtColor(picture, cv2.COLOR_BGR2RGB)
+    picture_rgb=picture
+
+    ret, jpeg = cv2.imencode('.jpg', picture_rgb)
+    pic = jpeg.tobytes()
+
+    return(pic)
 
 @app.route('/forward')
 def button_forward():

@@ -44,7 +44,7 @@ def display_video():
     while True:
         if camera == 0:
             try:
-                with urllib.request.urlopen('http://192.168.1.2:2204/video_feed') as f:
+                with urllib.request.urlopen('http://192.168.1.39:2204/get_video_frame') as f:
                     image=f.read()
                     
             except urllib.error.URLError as e:
@@ -56,7 +56,7 @@ def display_video():
                 try:
                     nparr = np.frombuffer(image, np.uint8)
                     image_2 = cv2.imdecode(nparr,cv2.IMREAD_UNCHANGED) 
-                    cv2.imwrite("temp2.jpg", image_2)
+                    cv2.imwrite("temp.jpg", image_2)
                     ret, jpeg = cv2.imencode('.jpg', image_2)
                     pic = jpeg.tobytes()
                 except:
