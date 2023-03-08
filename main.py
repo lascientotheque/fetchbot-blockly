@@ -29,8 +29,9 @@ camera_object = cv2.VideoCapture(0)
 with open("preferences.txt", "r") as file:
     lines = file.readlines()
     for line in lines:
-        if line.startswith("COM"):
-            com_port = line
+        if line.startswith("http://"):
+            IP_PORT = line.strip()
+            print(IP_PORT)
             break
 
 image = cv2.imread("offline.jpg")
@@ -44,7 +45,7 @@ def display_video():
     while True:
         if camera == 0:
             try:
-                with urllib.request.urlopen('http://192.168.1.39:2204/get_video_frame') as f:
+                with urllib.request.urlopen(IP_PORT+'/get_video_frame') as f:
                     image=f.read()
                     
             except urllib.error.URLError as e:
@@ -255,10 +256,29 @@ def switch_camera():
 @app.route('/command', methods=['POST'])
 def command():
     command = (request.data).decode()
-    try:
-        ser.write(command.encode())
-    except:
-        connect()
+
+    if command != "":    
+        if command == "forward":
+            print("forward")
+            res=urllib.request.urlopen(IP_PORT+"/forward")
+                    
+        elif command == "backward":
+            print("backward")
+            res=urllib.request.urlopen(IP_PORT+"/backward")
+            motor_control.backward()
+                    
+        elif command == "left":
+            print("left")
+            res=urllib.request.urlopen(IP_PORT+"/left")
+            motor_control.turn_left()
+                    
+        elif command == "right":
+            print("right")
+            res=urllib.request.urlopen(IP_PORT+"/right")
+            motor_control.turn_right()
+        else:
+            print(command) 
+
     return "200"
 
 @app.route('/code', methods=['POST'])
