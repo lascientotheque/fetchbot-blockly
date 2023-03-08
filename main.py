@@ -14,6 +14,7 @@ import uuid
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' # ignore tf warnings
 import tensorflow as tf
 import webbrowser
+import urllib
 
 camera = 1
 ser = None
@@ -35,29 +36,7 @@ with open("preferences.txt", "r") as file:
 image = cv2.imread("offline.jpg")
 ret, jpeg = cv2.imencode('.jpg', image)
 pic = jpeg.tobytes()
-
-def connect():
-    global ser
-
-    while True:
-        if ser == None:
-            try:
-                ser = serial.Serial(com_port, timeout=0, baudrate=115000)
-                print("Connected")
-                return
-            except:
-                print("No connection")
-                time.sleep(1)
-        else:
-            try:
-                ser.close()
-                ser = None
-                print("Disconnecting, reconnecting...")
-                time.sleep(1)
-            except:
-                print("Error")
-                time.sleep(1)
-
+        
 
 def display_video():
     global pic
@@ -65,18 +44,19 @@ def display_video():
     while True:
         if camera == 0:
             try:
-                image = ser.readline().decode()
-            except:
+                with urllib.request.urlopen('http://192.168.1.2:2204/video_feed') as f:
+                    image=f.read()
+                    
+            except urllib.error.URLError as e:
+                print(e.reason)
                 time.sleep(1)
                 image = ""
 
             if image !="":
                 try:
-                    image_2 = base64.b64decode(str(image))
-                    with open("temp.jpg", "wb") as fh:
-                        fh.write(image_2)
-                    nparr = np.frombuffer(image_2, np.uint8)
+                    nparr = np.frombuffer(image, np.uint8)
                     image_2 = cv2.imdecode(nparr,cv2.IMREAD_UNCHANGED) 
+                    cv2.imwrite("temp2.jpg", image_2)
                     ret, jpeg = cv2.imencode('.jpg', image_2)
                     pic = jpeg.tobytes()
                 except:
@@ -250,8 +230,8 @@ webbrowser.open("index.html")
 @app.route('/video')
 def video():
     global camera
-    if camera == 0:
-        connect()
+    #if camera == 0:
+    #    connect()
     return render_template("video.html")
 
 @app.route('/jquery-3.6.0.js')
