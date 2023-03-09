@@ -265,17 +265,15 @@ def command():
         elif command == "backward":
             print("backward")
             res=urllib.request.urlopen(IP_PORT+"/backward")
-            motor_control.backward()
                     
         elif command == "left":
             print("left")
             res=urllib.request.urlopen(IP_PORT+"/left")
-            motor_control.turn_left()
                     
         elif command == "right":
             print("right")
             res=urllib.request.urlopen(IP_PORT+"/right")
-            motor_control.turn_right()
+        
         else:
             print(command) 
 

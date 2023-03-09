@@ -1,1 +1,2 @@
+#Change to IP of raspberry PI (keep port as 2204)
 http://10.42.0.1:2204
