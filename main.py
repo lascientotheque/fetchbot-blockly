@@ -1,7 +1,6 @@
 
 import cv2
 from flask import Flask, flash, request, send_from_directory, render_template, Response
-import serial
 import time
 import numpy as np
 import base64
