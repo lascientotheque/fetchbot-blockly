@@ -25,13 +25,26 @@ This project has been tested on a Windows 10 64-bit machine and a Raspberry Pi 4
 
 In the command prompt, enter the following commands:
 
-> cd *"path of the downloaded the fetchbot repository"*
+> cd *"path of the extracted fetchbot repository"*
 
 > pip install -r requirements.txt
 
 ## Wifi Pairing
 
-On your **Windows PC**, go to Wifi networks and connect to the raspberry_pi_xx access point. 
+On your **Windows PC**, go to Wifi networks and connect to the raspberry_pi_xx access point (where 'xx' is the ID of the Raspberry Pi).
+
+The password is **not** the PIN code, but the **security key**. Click on 'Se connecter à l'aide d'une clé de sécurité', and use default password. If asked for allowing discovery of the computer, select 'No'.
+
+The IP address of the Raspberry Pi is 10.42.0.1. You may use VNC viewer to connect to it (loging: pi, password: raspberry).
+
+
+
+## Test with remote control
+
+In your browser, go to 10.42.0.1:2204
+
+* If the camera image is not displayed, try reloading the page with 'CTRL+R'
+* If the motors do not work, check that the battery for the motos is 'on'. 
 
 
 
@@ -41,30 +54,14 @@ On your **Windows PC**, go to Wifi networks and connect to the raspberry_pi_xx a
 
 The program can be executed from the command prompt with:
 
-> cd *"path of the downloaded the fetchbot repository"*
+> cd *"path of the extracted fetchbot repository"*
 
-> python3 main.py
+> python main.py
 
 ## Raspberry Pi
-The program starts automatically on startup (auto login).
 
-To disable the auto start, open a new terminal window and enter:
+The program starts automatically on startup (with 'cron').
 
-> CTRL+C
-
-> nano /home/pi/.bashrc
-
-Comment out the two last lines of the file:
-
-> Starting Fetchbot... ress CTRL+C to exit
-
-> #python /home/pi/fetchbot-rpi/main.py
-
-Save and exit the file with CTRL+X.
-
-And reboot:
-
-> sudo reboot
 
 # Notes
 Make sure that the Wifi connection is active between the Raspberry Pi and the Windows PC before launching the program on the Windows PC. 
