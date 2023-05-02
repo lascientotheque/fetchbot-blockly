@@ -32,7 +32,7 @@ In the command prompt, enter the following commands:
 
 On your **Windows PC**, go to Wifi networks and connect to the raspberry_pi_xx access point (where 'xx' is the ID of the Raspberry Pi).
 
-The password is **not** the PIN code, but the **security key**. Click on 'Se connecter à l'aide d'une clé de sécurité', and use default password. If asked for allowing discovery of the computer, select 'No'.
+The password is **not** the PIN code, but the **security key**. Click on 'Se connecter à l'aide d'une clé de sécurité', and use default password. If asked for allowing discovery of the computer, select 'Oui'.
 
 The IP address of the Raspberry Pi is 10.42.0.1. You may use VNC viewer to connect to it (loging: pi, password: raspberry).
 
