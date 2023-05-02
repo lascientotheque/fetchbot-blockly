@@ -20,7 +20,6 @@ This project has been tested on a Windows 10 64-bit machine and a Raspberry Pi 4
 
 * Navigate to https://github.com/lascientotheque/fetchbot-blockly and click on **code>Download ZIP**. Extract the files once the download is complete.
 
-
 ### Install Python Packages
 
 In the command prompt, enter the following commands:
